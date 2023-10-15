@@ -1,0 +1,45 @@
+#include <iostream>
+#include <iomanip>
+
+class Time {
+public:
+    int hours;
+    int minutes;
+
+    Time(int h, int m) : hours(h), minutes(m) {}
+
+    void operator--() {
+        if (hours == 0 && minutes == 0) {
+            std::cout << "Cannot decrement further. Time is already at 00:00." << std::endl;
+        } else {
+            if (minutes == 0) {
+                hours--;
+                minutes = 59;
+            } else {
+                minutes--;
+            }
+        }
+    }
+
+    void displayTime() {
+        std::cout << "Time before decrement: " << std::setfill('0') << std::setw(2) << hours << ":" << std::setfill('0') << std::setw(1) << minutes << std::endl;
+    }
+};
+
+int main() {
+    int h, m;
+    std::cin >> h >> m;
+
+    Time time(h, m);
+    time.displayTime();
+
+    --time; // Decrement the time by a minute
+
+    if (time.hours == 0 && time.minutes == 0) {
+        std::cout << "Time after decrement: 0:00" << std::endl;
+    } else {
+        std::cout << "Time after decrement: " << std::setfill('0') << std::setw(2) << time.hours << ":" << std::setfill('0') << std::setw(2) << time.minutes << std::endl;
+    }
+
+    return 0;
+}
