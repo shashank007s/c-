@@ -1,0 +1,50 @@
+#include <iostream>
+#include <cstring>
+
+class CustomString {
+private:
+    char data[101]; // Assuming a maximum length of 100 characters
+
+public:
+    CustomString(const char* str) {
+        strcpy(data, str);
+    }
+
+    void invertCase() {
+        for (int i = 0; data[i] != '\0'; ++i) {
+            if (isalpha(data[i])) {
+                if (islower(data[i])) {
+                    data[i] = toupper(data[i]);
+                } else {
+                    data[i] = tolower(data[i]);
+                }
+            }
+        }
+    }
+
+    const char* getOriginalString() {
+        return data;
+    }
+
+    friend CustomString operator!(const CustomString& str);
+};
+
+CustomString operator!(const CustomString& str) {
+    CustomString result = str;
+    result.invertCase();
+    return result;
+}
+
+int main() {
+    char input[101];
+    std::cin.getline(input, 100);
+
+    CustomString customString(input);
+
+    std::cout << "Original String: " << customString.getOriginalString() << std::endl;
+    CustomString invertedString = !customString;
+    std::cout << "Inverted String: " << invertedString.getOriginalString() << std::endl;
+
+    return 0;
+}
+
