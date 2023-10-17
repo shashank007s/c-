@@ -1,0 +1,42 @@
+#include <iostream>
+#include <iomanip>
+
+class Employee {
+protected:
+    int empId;
+    float salary;
+
+public:
+    Employee(int id, float sal) : empId(id), salary(sal) {}
+
+    void displayEmployeeDetails() {
+        std::cout << "Employee ID: " << empId << std::endl;
+        std::cout << "Salary: $" << std::fixed << std::setprecision(2) << salary << std::endl;
+    }
+};
+
+class empLevel : public Employee {
+public:
+    empLevel(int id, float sal) : Employee(id, sal) {}
+
+    void categorizeEmployee() {
+        if (salary > 100) {
+            std::cout << "Level: 1" << std::endl;
+        } else {
+            std::cout << "Level: 2" << std::endl;
+        }
+    }
+};
+
+int main() {
+    int empId;
+    float salary;
+
+    std::cin >> empId >> salary;
+
+    empLevel employee(empId, salary);
+    employee.displayEmployeeDetails();
+    employee.categorizeEmployee();
+
+    return 0;
+}
