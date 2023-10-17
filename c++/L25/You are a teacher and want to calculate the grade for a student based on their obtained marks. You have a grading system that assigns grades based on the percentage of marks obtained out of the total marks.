@@ -1,0 +1,51 @@
+#include <iostream>
+#include <string>
+
+class Grade {
+private:
+    int obtainedMarks;
+    std::string grade;
+
+public:
+    Grade(int marks) : obtainedMarks(marks) {
+        calculateGrade();
+    }
+
+    void calculateGrade() {
+        double percentage = static_cast<double>(obtainedMarks) / 500 * 100;
+        
+        if (percentage >= 90) {
+            grade = "A+";
+        } else if (percentage >= 80) {
+            grade = "A";
+        } else if (percentage >= 70) {
+            grade = "B";
+        } else if (percentage >= 60) {
+            grade = "C";
+        } else if (percentage >= 50) {
+            grade = "D";
+        } else {
+            grade = "F";
+        }
+    }
+
+    operator int() const {
+        return obtainedMarks;
+    }
+
+    operator std::string() const {
+        return grade;
+    }
+};
+
+int main() {
+    int obtainedMarks;
+    std::cin >> obtainedMarks;
+
+    Grade studentGrade(obtainedMarks);
+
+    std::cout << "Marks: " << int(studentGrade) << std::endl;
+    std::cout << "Grade: " << std::string(studentGrade) << std::endl;
+
+    return 0;
+}
