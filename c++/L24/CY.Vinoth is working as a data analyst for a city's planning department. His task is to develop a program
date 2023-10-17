@@ -1,0 +1,33 @@
+#include <iostream>
+#include <cmath>
+
+class Population {
+private:
+    int currentPopulation;
+    double growthRate;
+
+public:
+    Population(int population) : currentPopulation(population), growthRate(0.02) {
+        // Constructor to set the current population and growth rate (2% annually)
+    }
+
+    int predictPopulation(double years) {
+        // Calculate the predicted population after 'years' based on exponential growth
+        return static_cast<int>(currentPopulation * std::pow(1 + growthRate, years));
+    }
+};
+
+int main() {
+    int currentPopulation;
+    double years;
+
+    std::cin >> currentPopulation;
+    std::cin >> years;
+
+    Population city(currentPopulation);
+    int predictedPopulation = city.predictPopulation(years);
+
+    std::cout << "Population after " << years << " years: " << predictedPopulation << std::endl;
+
+    return 0;
+}
