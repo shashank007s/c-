@@ -1,0 +1,46 @@
+#include <iostream>
+#include <iomanip>
+
+class DistConv {
+private:
+    double miles;
+
+public:
+    DistConv(int miles) : miles(miles) {
+        // Constructor to convert miles to kilometers and meters
+    }
+
+    DistConv(int kilometers, double meters) {
+        // Constructor to accept kilometers and meters directly
+        miles = kilometers / 1.609344 + meters / 1609.344;
+    }
+
+    operator double() const {
+        // Type conversion operator to convert to miles
+        return miles;
+    }
+
+    void convertToKilometersMeters() const {
+        int kilometers = static_cast<int>(miles * 1.609344);
+        double remainingMeters = (miles * 1.609344 - kilometers) * 1000.0;
+        std::cout << kilometers << " kilometers and " << std::fixed << std::setprecision(2) << remainingMeters << " meters" << std::endl;
+    }
+};
+
+int main() {
+    int miles, kilometers;
+    double meters;
+
+    std::cin >> miles;
+    DistConv conv1(miles);
+    conv1.convertToKilometersMeters();
+    double milesConverted1 = conv1;
+
+    std::cin >> kilometers >> meters;
+    DistConv conv2(kilometers, meters);
+    double milesConverted2 = conv2;
+
+    std::cout << std::fixed << std::setprecision(2) << milesConverted2 << " miles" << std::endl;
+
+    return 0;
+}
