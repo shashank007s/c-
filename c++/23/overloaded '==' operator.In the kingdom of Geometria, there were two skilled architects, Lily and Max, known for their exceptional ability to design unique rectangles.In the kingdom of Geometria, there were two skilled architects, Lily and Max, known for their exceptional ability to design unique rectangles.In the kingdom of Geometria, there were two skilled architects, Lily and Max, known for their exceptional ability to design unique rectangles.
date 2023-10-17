@@ -1,0 +1,36 @@
+#include <iostream>
+
+class Rectangle {
+public:
+    int width;
+    int height;
+
+    Rectangle(int w, int h) : width(w), height(h) {}
+
+    bool operator==(const Rectangle& other) const {
+        return width == other.width && height == other.height;
+    }
+};
+
+int main() {
+    int width1, height1, width2, height2;
+
+    // Input for Rectangle 1
+    std::cin >> width1 >> height1;
+
+    // Input for Rectangle 2
+    std::cin >> width2 >> height2;
+
+    // Create Rectangle objects
+    Rectangle rect1(width1, height1);
+    Rectangle rect2(width2, height2);
+
+    // Compare rectangles
+    if (rect1 == rect2) {
+        std::cout << "Rectangle 1 and Rectangle 2 are equal in size." << std::endl;
+    } else {
+        std::cout << "Rectangle 1 and Rectangle 2 are not equal in size." << std::endl;
+    }
+
+    return 0;
+}
