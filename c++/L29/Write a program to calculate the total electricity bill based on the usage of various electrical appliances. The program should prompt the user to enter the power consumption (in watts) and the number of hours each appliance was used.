@@ -1,0 +1,46 @@
+#include <iostream>
+#include <cmath>
+#include <iomanip>
+
+using namespace std;
+
+class CurrentBill {
+public:
+    virtual double amount(int power, int hours) = 0;
+};
+
+class Fan : public CurrentBill {
+public:
+    double amount(int power, int hours) override {
+        return (power * hours * 1.5) / 1000.0;
+    }
+};
+
+class Light : public CurrentBill {
+public:
+    double amount(int power, int hours) override {
+        return (power * hours * 1.5) / 1000.0;
+    }
+};
+
+class TV : public CurrentBill {
+public:
+    double amount(int power, int hours) override {
+        return (power * hours * 1,5) / 1000.0;
+    }
+};
+
+int main() {
+    int fanPower, fanHours, lightPower, lightHours, tvPower, tvHours;
+    cin >> fanPower >> fanHours >> lightPower >> lightHours >> tvPower >> tvHours;
+
+    Fan fan;
+    Light light;
+    TV tv;
+
+    double totalBill = fan.amount(fanPower, fanHours) + light.amount(lightPower, lightHours) + tv.amount(tvPower, tvHours);
+
+    cout << fixed << setprecision(2) << totalBill << endl;
+
+    return 0;
+}
