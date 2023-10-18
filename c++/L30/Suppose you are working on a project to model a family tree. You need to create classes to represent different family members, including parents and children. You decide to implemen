@@ -1,0 +1,70 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Parent {
+public:
+    Parent() {
+        cout << "Parent constructor" << endl;
+    }
+
+    ~Parent() {
+        cout << "Parent destructor" << endl;
+    }
+};
+
+class Child1 : public Parent {
+public:
+    int value;
+
+    Child1(int v) : value(v) {
+        cout << "Child1 constructor: " << value << endl;
+    }
+
+    ~Child1() {
+        cout << "Child1 destructor" << endl;
+    }
+};
+
+class Child2 : public Parent {
+public:
+    double value;
+
+    Child2(double v) : value(v) {
+        cout << "Child2 constructor: " << value << endl;
+    }
+
+    ~Child2() {
+        cout << "Child2 destructor" << endl;
+    }
+};
+
+class Child3 : public Parent {
+public:
+    string value;
+
+    Child3(string v) : value(v) {
+        cout << "Child3 constructor: " << value << endl;
+    }
+
+    ~Child3() {
+        cout << "Child3 destructor" << endl;
+    }
+};
+
+int main() {
+    int intVal;
+    double doubleVal;
+    string strVal;
+
+    cin >> intVal >> doubleVal;
+    cin.ignore(); // Clear the newline character from the input buffer.
+    getline(cin, strVal);
+
+    Child1 child1(intVal);
+    Child2 child2(doubleVal);
+    Child3 child3(strVal);
+
+    return 0;
+}
