@@ -1,0 +1,84 @@
+#include <iostream>
+#include <string>
+#include <vector>
+
+class ItemDetails {
+protected:
+    std::string itemName;
+    int itemNumber;
+    double itemPrice;
+
+public:
+    ItemDetails(const std::string& name, int number, double price)
+        : itemName(name), itemNumber(number), itemPrice(price) {}
+
+    void displayDetails(int count) {
+        std::cout << "Details of item " << count << " :" << std::endl;
+        std::cout << "1. Item Name: " << itemName << std::endl;
+        std::cout << "2. Item No.: " << itemNumber << std::endl;
+        std::cout << "3. Item Price: " << itemPrice << std::endl;
+    }
+
+    double getPrice() const {
+        return itemPrice;
+    }
+};
+
+class DiscountDetails {
+protected:
+    int discountPercent;
+
+public:
+    DiscountDetails(int percent) : discountPercent(percent) {}
+
+    void displayDiscount() {
+        std::cout << "4. Discount Percent: " << discountPercent << std::endl;
+    }
+
+    double calculateDiscount(double price) const {
+        return price * discountPercent / 100.0;
+    }
+};
+
+class DiscountedItem : public ItemDetails, public DiscountDetails {
+public:
+    DiscountedItem(const std::string& name, int number, double price, int percent)
+        : ItemDetails(name, number, price), DiscountDetails(percent) {}
+
+    void displayDetails(int count) {
+        ItemDetails::displayDetails(count);
+        displayDiscount();
+        double discountedPrice = itemPrice - calculateDiscount(itemPrice);
+        std::cout << "5. Discounted Price: " << discountedPrice << std::endl << std::endl;
+    }
+};
+
+int main() {
+    int N;
+    std::cin >> N;
+    std::vector<DiscountedItem> items;
+
+    double totalPrice = 0.0;
+    double totalDiscount = 0.0;
+
+    for (int i = 0; i < N; ++i) {
+        std::string name;
+        int number, percent;
+        double price;
+
+        std::cin >> name >> number >> price >> percent;
+        items.emplace_back(name, number, price, percent);
+
+        totalPrice += price;
+        totalDiscount += items.back().calculateDiscount(price);
+    }
+
+    for (int i = 0; i < N; ++i) {
+        items[i].displayDetails(i + 1);
+    }
+
+    std::cout << "Total Price: " << totalPrice << std::endl;
+    std::cout << "Total Discount: " << totalDiscount << std::endl;
+
+    return 0;
+}
