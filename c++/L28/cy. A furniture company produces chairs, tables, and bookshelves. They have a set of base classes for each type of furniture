@@ -1,0 +1,97 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+// Base class: Furniture
+class Furniture {
+protected:
+    double price;
+    string material;
+
+public:
+    Furniture(double p, string m) : price(p), material(m) {}
+
+    void displayInfo() {
+        cout << fixed;
+        cout.precision(0);
+        cout << "Price: $" << price << endl;
+        cout << "Material: " << material << endl;
+    }
+};
+
+// Chair Type
+class ChairType {
+protected:
+    string type;
+
+public:
+    ChairType(string t) : type(t) {}
+
+    void displayChairType() {
+        cout << "Chair Type: " << type << endl;
+    }
+};
+
+// RecliningChair class
+class RecliningChair : public Furniture, public ChairType {
+private:
+    bool isElectric;
+
+public:
+    RecliningChair(double p, string m, bool electric) : Furniture(p, m), ChairType("Standard"), isElectric(electric) {}
+
+    void displayInfo() {
+        Furniture::displayInfo();
+        ChairType::displayChairType();
+        // cout << "Reclining function: " << (isElectric ? "Electric" : "Manual") << endl;
+    }
+};
+
+// Bookshelf class
+class Bookshelf : public Furniture {
+protected:
+    int numShelves;
+
+public:
+    Bookshelf(double p, string m, int shelves) : Furniture(p, m), numShelves(shelves) {}
+
+    void displayInfo() {
+        Furniture::displayInfo();
+        cout << "Number of Shelves: " << numShelves << endl;
+    }
+};
+
+int main() {
+    double price;
+    string material;
+    char type;
+    int numShelves;
+    bool isElectric;
+
+    cin >> price >> material >> type;
+
+    if (type == 'C') {
+        char reclining;
+        cin >> reclining;
+        if (reclining == 'Y') {
+            cin >> isElectric;
+        }
+        else {
+            isElectric = false;
+        }
+        RecliningChair chair(price, material, isElectric);
+        chair.displayInfo();
+    } else if (type == 'T') {
+        Furniture chair(price, material);
+        chair.displayInfo();
+    } else if (type == 'B') {
+        cin >> numShelves;
+        Bookshelf bookshelf(price, material, numShelves);
+        bookshelf.displayInfo();
+    } else {
+        cout << "Invalid type!" << endl;
+    }
+
+    return 0;
+}
